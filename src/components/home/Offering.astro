@@ -1,0 +1,34 @@
+---
+import Container from '../ui/Container.astro';
+
+const offerings = [
+  {
+    title: 'Diagnóstico',
+    body: 'Em uma reunião, mapeamos onde IA faz diferença real no seu negócio — e onde não faz. Saímos com escopo, prazo e investimento estimados. Sem proposta vaga.',
+  },
+  {
+    title: 'Construção',
+    body: 'Desenhamos arquitetura, integramos com seus sistemas e entregamos em produção. Stack moderno (LLMs, RAG, agentes), código limpo, deploy versionado. Você fica com tudo.',
+  },
+  {
+    title: 'Operação',
+    body: 'Acompanhamos pós-deploy: monitoramento, ajustes finos, evolução. Modelo de retainer ou projeto fechado, você escolhe.',
+  },
+];
+---
+
+<section class="py-24">
+  <Container size="default">
+    <h2 class="font-[var(--font-display)] text-4xl md:text-5xl mb-16 max-w-2xl">
+      O que entregamos.
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+      {offerings.map(item => (
+        <div>
+          <h3 class="font-[var(--font-display)] text-2xl mb-4">{item.title}</h3>
+          <p class="text-[var(--ink-soft)] leading-relaxed">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

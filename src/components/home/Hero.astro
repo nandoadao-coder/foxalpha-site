@@ -1,0 +1,41 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section class="relative pt-16 pb-32 overflow-hidden">
+  <Container size="default">
+    <div class="relative z-10 max-w-4xl">
+      <p class="text-sm text-[var(--ink-mute)] mb-6 tracking-wide uppercase">
+        Construímos com Numem · NumemBot · Azul Empréstimos · RD Saúde · Doe Seu Cupom
+      </p>
+
+      <h1 class="font-[var(--font-display)] text-[clamp(3rem,8vw,5.5rem)] leading-[1.05] tracking-tight mb-8">
+        Inteligência artificial<br />
+        colocada em produção,<br />
+        <em class="italic font-light text-[var(--accent)]">sem teatro.</em>
+      </h1>
+
+      <p class="text-xl text-[var(--ink-soft)] max-w-2xl mb-10">
+        Implementamos sistemas com IA que resolvem problemas reais de empresas que já levaram a sério a transformação digital — do diagnóstico ao deploy.
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <Button href="/diagnostico" variant="primary" size="lg">
+          Iniciar diagnóstico →
+        </Button>
+        <Button href="/trabalhos" variant="ghost" size="lg">
+          Ver trabalhos
+        </Button>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Marca d'agua: raposa line-art no canto direito -->
+  <div
+    class="absolute right-0 top-1/2 -translate-y-1/2 w-[40%] max-w-[600px] opacity-20 pointer-events-none"
+    aria-hidden="true"
+  >
+    <img src="/favicon.svg" alt="" class="w-full h-auto" />
+  </div>
+</section>
