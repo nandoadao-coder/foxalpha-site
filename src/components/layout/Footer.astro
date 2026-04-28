@@ -1,0 +1,50 @@
+---
+import Container from '../ui/Container.astro';
+import Link from '../ui/Link.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-[var(--rule)] mt-32 py-16">
+  <Container size="default">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="/favicon.svg" alt="" width="32" height="32" />
+          <span class="font-[var(--font-display)] text-xl">FoxAlpha</span>
+        </div>
+        <p class="text-[var(--ink-soft)] max-w-md">
+          Consultoria boutique de IA. Implementamos sistemas que resolvem problemas reais — do diagnóstico ao deploy.
+        </p>
+        <p class="text-sm text-[var(--ink-mute)] mt-6">
+          Site construído pela própria FoxAlpha — código aberto em <Link href="https://github.com/nandoadao-coder/foxalpha-site" external>github.com/nandoadao-coder/foxalpha-site</Link>
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-semibold mb-4">Navegação</h4>
+        <ul class="space-y-2 text-sm text-[var(--ink-soft)]">
+          <li><a href="/trabalhos" class="hover:text-[var(--ink)]">Trabalhos</a></li>
+          <li><a href="/sobre" class="hover:text-[var(--ink)]">Sobre</a></li>
+          <li><a href="/escrita" class="hover:text-[var(--ink)]">Escrita</a></li>
+          <li><a href="/diagnostico" class="hover:text-[var(--ink)]">Diagnóstico</a></li>
+          <li><a href="/privacidade" class="hover:text-[var(--ink)]">Privacidade</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-semibold mb-4">Contato direto</h4>
+        <ul class="space-y-2 text-sm text-[var(--ink-soft)]">
+          <li><Link href="mailto:fernando@foxalpha.com.br">Email</Link></li>
+          <li><Link href="https://www.linkedin.com/in/fernandoadao/" external>LinkedIn</Link></li>
+          <li><Link href="https://wa.me/55XXXXXXXXXXX" external>WhatsApp</Link></li>
+          <li><Link href="https://github.com/nandoadao-coder" external>GitHub</Link></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-[var(--rule)] mt-12 pt-6 text-sm text-[var(--ink-mute)]">
+      © {year} FoxAlpha. Todos os direitos reservados.
+    </div>
+  </Container>
+</footer>
