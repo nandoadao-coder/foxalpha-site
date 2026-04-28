@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Link from '../ui/Link.astro';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const recent = posts
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
+
+const formatDate = (d: Date) => d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+{recent.length > 0 && (
+  <section class="py-24 bg-[var(--bg-elev)]">
+    <Container size="narrow">
+      <div class="flex items-end justify-between mb-12">
+        <h2 class="font-[var(--font-display)] text-4xl">Escrita recente.</h2>
+        <Link href="/escrita">Ver tudo →</Link>
+      </div>
+      <ul class="space-y-12">
+        {recent.map(post => (
+          <li class="border-b border-[var(--rule)] pb-12 last:border-b-0">
+            <p class="text-sm text-[var(--ink-mute)] mb-3">{formatDate(post.data.publishedAt)}</p>
+            <h3 class="font-[var(--font-display)] text-3xl mb-3 leading-tight">
+              <a href={`/escrita/${post.data.slug}`} class="hover:text-[var(--accent)] transition-colors">
+                {post.data.title}
+              </a>
+            </h3>
+            <p class="text-[var(--ink-soft)] mb-4">{post.data.excerpt}</p>
+            <Link href={`/escrita/${post.data.slug}`}>Ler →</Link>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </section>
+)}

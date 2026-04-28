@@ -1,0 +1,37 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+
+const sampleQuestions = [
+  'Qual é o maior gargalo operacional que sua equipe enfrenta hoje?',
+  'Vocês já tentaram resolver isso com automação? Por que não funcionou?',
+  'Existe dado ou conhecimento espalhado que ninguém consegue acessar?',
+];
+---
+
+<section class="py-24" style="background: linear-gradient(180deg, var(--bg) 0%, var(--accent-soft) 100%);">
+  <Container size="narrow">
+    <div class="text-center">
+      <h2 class="font-[var(--font-display)] text-4xl md:text-5xl mb-6 leading-tight">
+        Onde a IA faz diferença<br />
+        <em class="italic font-light text-[var(--accent)]">no seu negócio?</em>
+      </h2>
+      <p class="text-xl text-[var(--ink-soft)] mb-12 max-w-2xl mx-auto">
+        Em ~10 minutos, nosso agent identifica oportunidades reais — sem agendar reunião, sem cadastro.
+      </p>
+
+      <div class="bg-[var(--bg-elev)] border border-[var(--rule)] rounded-lg p-8 mb-12 text-left max-w-xl mx-auto">
+        <p class="text-sm text-[var(--ink-mute)] uppercase tracking-wide mb-4">O agent vai perguntar coisas como</p>
+        <ul class="space-y-3">
+          {sampleQuestions.map(q => (
+            <li class="font-[var(--font-display)] italic text-[var(--ink-soft)]">{q}</li>
+          ))}
+        </ul>
+      </div>
+
+      <Button href="/diagnostico" variant="primary" size="lg">
+        Iniciar diagnóstico →
+      </Button>
+    </div>
+  </Container>
+</section>
