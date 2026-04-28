@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Link from '../ui/Link.astro';
+
+const allCases = await getCollection('cases', ({ data }) => !data.draft);
+const featuredFirst = allCases.sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const cases = featuredFirst.slice(0, 5);
+---
+
+<section class="py-24">
+  <Container size="default">
+    <div class="flex items-end justify-between mb-12">
+      <h2 class="font-[var(--font-display)] text-4xl md:text-5xl max-w-2xl">
+        Trabalhos selecionados.
+      </h2>
+      <Link href="/trabalhos">Ver todos →</Link>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {cases.map((c, i) => (
+        <a
+          href={`/trabalhos/${c.data.slug}`}
+          class={`group block ${
+            i < 2 ? 'lg:col-span-3 md:col-span-2 lg:[&:nth-child(2)]:col-span-3' : ''
+          }`}
+        >
+          <div class="aspect-[4/3] bg-[var(--bg-elev)] rounded-lg overflow-hidden mb-4 border border-[var(--rule)] group-hover:border-[var(--accent)] transition-colors">
+            <img
+              src={c.data.heroImage}
+              alt={c.data.title}
+              class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <h3 class="font-[var(--font-display)] text-2xl mb-2">{c.data.title}</h3>
+          <p class="text-[var(--ink-soft)] text-sm">{c.data.pitch}</p>
+        </a>
+      ))}
+    </div>
+  </Container>
+</section>

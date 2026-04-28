@@ -1,0 +1,34 @@
+---
+import Container from '../ui/Container.astro';
+
+// Sprint 0: valores estaticos. Sprint 1 puxa de /api/live-stats via fetch client-side com cache KV no Worker.
+const stats = [
+  { value: '142.857', label: 'Tickets atendidos via NumemBot' },
+  { value: '18', label: 'Empresas em produção' },
+  { value: '99.4%', label: 'Taxa de resolução' },
+  { value: '5+', label: 'Projetos entregues' },
+];
+---
+
+<section class="py-24 bg-[var(--bg-elev)]">
+  <Container size="default">
+    <div class="flex items-center gap-3 mb-8">
+      <span class="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-[var(--ink-mute)]">
+        <span class="w-2 h-2 rounded-full bg-[var(--success)] animate-pulse"></span>
+        Sistemas em produção agora
+      </span>
+      <span class="text-xs text-[var(--ink-mute)]">· atualizado a cada 60s</span>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      {stats.map(stat => (
+        <div>
+          <div class="font-[var(--font-display)] text-5xl md:text-6xl mb-2 text-[var(--ink)]">
+            {stat.value}
+          </div>
+          <div class="text-sm text-[var(--ink-soft)] leading-tight">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>
