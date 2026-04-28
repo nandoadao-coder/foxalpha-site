@@ -1,43 +1,104 @@
-# Astro Starter Kit: Minimal
+# FoxAlpha — Site
 
-```sh
-npm create astro@latest -- --template minimal
+Site oficial da FoxAlpha (`foxalpha.com.br`). Construído com Astro 5/6 + Cloudflare Pages.
+
+## Stack
+
+- **Framework:** Astro (SSG + ilhas React)
+- **UI:** React 19 onde precisa, HTML estático no resto
+- **Styling:** Tailwind CSS 4 + design tokens em `src/styles/tokens.css`
+- **Conteúdo:** MDX no git, validado por schemas Zod (loader API do Astro)
+- **Hospedagem:** Cloudflare Pages
+- **Analytics:** Cloudflare Web Analytics (privacy-first)
+- **Agent IA (sprint 1+):** Cloudflare Workers + Groq + Llama 4 Maverick
+
+## Setup local
+
+```bash
+# Pré-requisitos: Node 20+
+npm install
+cp .env.example .env.local  # editar com seus valores
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Acesse `http://localhost:4321`.
 
-## 🚀 Project Structure
+## Scripts
 
-Inside of your Astro project, you'll see the following folders and files:
+| Comando | Descrição |
+|---|---|
+| `npm run dev` | Dev server com hot-reload |
+| `npm run build` | Build de produção |
+| `npm run preview` | Preview do build |
+| `npm test` | Vitest |
+| `npm run check` | Type check (Astro) |
+| `npm run generate:og` | Regenera `public/og-default.png` |
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+## Deploy
+
+Push para `main` → Cloudflare Pages builda e publica automaticamente em `foxalpha.com.br`.
+PRs geram preview URLs únicos.
+
+## Estrutura
+
+```
+src/
+├── content/         # MDX (cases, posts, authors)
+├── content.config.ts  # Schemas Zod + glob loaders
+├── components/      # Astro components (UI, layout, home, seo)
+├── layouts/         # BaseLayout, page layouts
+├── pages/           # File-based routing
+└── styles/          # Tokens + global CSS
+
+public/              # Static assets (favicon, OG image, robots, cases/)
+scripts/             # Build/maintenance scripts (gerar OG, etc.)
+tests/               # Vitest tests
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Adicionar conteúdo
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### Novo case
 
-Any static assets, like images, can be placed in the `public/` directory.
+Criar `src/content/cases/<slug>.mdx` com frontmatter:
 
-## 🧞 Commands
+```yaml
+---
+title: "Título"
+slug: "slug-url"
+client: "Nome do cliente"
+pitch: "Frase curta de resultado (até 160 chars)"
+type: "saas"  # ou landing, institucional, filantropico
+url: "https://..."
+heroImage: "/cases/<arquivo>.png"
+publishedAt: 2026-04-28
+stack: ["Astro", "Cloudflare"]
+metrics:
+  - label: "Tickets reduzidos"
+    value: "70%"
+---
 
-All commands are run from the root of the project, from a terminal:
+## Contexto
+...
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### Novo post
 
-## 👀 Want to learn more?
+Criar `src/content/posts/<slug>.mdx`:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```yaml
+---
+title: "..."
+slug: "..."
+excerpt: "Resumo de 1-2 frases"
+publishedAt: 2026-04-28
+tags: [arquitetura, engenharia]
+---
+```
+
+## Licença
+
+MIT — veja `LICENSE`.
+
+## Créditos
+
+Construído pela FoxAlpha.
