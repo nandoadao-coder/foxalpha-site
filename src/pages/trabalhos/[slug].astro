@@ -1,0 +1,138 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Button from '../../components/ui/Button.astro';
+
+export async function getStaticPaths() {
+  const cases = await getCollection('cases', ({ data }) => !data.draft);
+  return cases.map(c => ({
+    params: { slug: c.data.slug },
+    props: { entry: c },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const data = entry.data;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.pitch}
+  ogImage={data.heroImage}
+  type="article"
+>
+  <article>
+    <Container size="default">
+      <div class="py-16">
+        <p class="text-sm text-[var(--ink-mute)] mb-6">
+          <a href="/trabalhos" class="hover:text-[var(--ink)]">Trabalhos</a> / {data.title}
+        </p>
+
+        <h1 class="font-[var(--font-display)] text-5xl md:text-7xl mb-8 leading-[1.05]">
+          {data.title}
+        </h1>
+        <p class="text-2xl text-[var(--ink-soft)] max-w-3xl mb-10 leading-snug">
+          {data.pitch}
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-16">
+          {data.url && <Button href={data.url} variant="outline" size="md">Visitar →</Button>}
+          {data.githubUrl && <Button href={data.githubUrl} variant="outline" size="md">GitHub →</Button>}
+        </div>
+
+        <div class="aspect-[16/9] bg-[var(--bg-elev)] rounded-lg overflow-hidden border border-[var(--rule)] mb-16">
+          <img src={data.heroImage} alt={data.title} class="w-full h-full object-cover" />
+        </div>
+      </div>
+    </Container>
+
+    <Container size="prose">
+      <div class="prose prose-lg pb-16">
+        <Content />
+      </div>
+    </Container>
+
+    {data.stack.length > 0 && (
+      <Container size="prose">
+        <div class="border-t border-[var(--rule)] pt-12 mb-16">
+          <h3 class="font-[var(--font-display)] text-3xl mb-6">Stack</h3>
+          <div class="flex flex-wrap gap-2">
+            {data.stack.map(tech => (
+              <span class="px-3 py-1 bg-[var(--bg-elev)] border border-[var(--rule)] rounded-full text-sm">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Container>
+    )}
+
+    {data.metrics.length > 0 && (
+      <Container size="default">
+        <div class="border-t border-[var(--rule)] pt-12 pb-16">
+          <h3 class="font-[var(--font-display)] text-3xl mb-8">Resultado</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {data.metrics.map(m => (
+              <div>
+                <div class="font-[var(--font-display)] text-5xl mb-2 text-[var(--accent)]">{m.value}</div>
+                <div class="text-[var(--ink-soft)]">{m.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    )}
+
+    <Container size="narrow">
+      <div class="border-t border-[var(--rule)] pt-12 pb-24 text-center">
+        <h3 class="font-[var(--font-display)] text-3xl mb-4">
+          Curtiu? Dá pra fazer algo parecido no seu negócio.
+        </h3>
+        <Button href="/diagnostico" variant="primary" size="lg">
+          Iniciar diagnóstico →
+        </Button>
+      </div>
+    </Container>
+  </article>
+</BaseLayout>
+
+<style>
+  /* Estilo prose customizado */
+  .prose :global(h2) {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .prose :global(h3) {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose :global(p) {
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    font-size: 1.125rem;
+  }
+  .prose :global(strong) {
+    color: var(--ink);
+  }
+  .prose :global(a) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .prose :global(ul) {
+    list-style: disc;
+    padding-left: 1.5rem;
+    color: var(--ink-soft);
+  }
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+  }
+</style>

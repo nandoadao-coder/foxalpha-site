@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+
+const allCases = await getCollection('cases', ({ data }) => !data.draft);
+const cases = allCases.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const typeLabels: Record<string, string> = {
+  saas: 'SaaS',
+  landing: 'Landing',
+  institucional: 'Institucional',
+  filantropico: 'Filantrópico',
+};
+---
+
+<BaseLayout
+  title="Trabalhos"
+  description="Sistemas com IA que entregamos para clientes — em produção, com métricas reais."
+>
+  <Container size="default">
+    <div class="py-16 md:py-24">
+      <p class="text-sm text-[var(--ink-mute)] uppercase tracking-wide mb-4">Trabalhos</p>
+      <h1 class="font-[var(--font-display)] text-5xl md:text-6xl mb-8 max-w-3xl leading-tight">
+        Sistemas em produção,<br />
+        escolhidos pelo cliente.
+      </h1>
+      <p class="text-xl text-[var(--ink-soft)] max-w-2xl">
+        Cada trabalho é um projeto real, em produção, com métricas reais.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pb-24">
+      {cases.map(c => (
+        <a href={`/trabalhos/${c.data.slug}`} class="group block">
+          <div class="aspect-[4/3] bg-[var(--bg-elev)] rounded-lg overflow-hidden mb-4 border border-[var(--rule)] group-hover:border-[var(--accent)] transition-colors">
+            <img src={c.data.heroImage} alt={c.data.title} class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
+          </div>
+          <p class="text-xs text-[var(--ink-mute)] uppercase tracking-wide mb-2">{typeLabels[c.data.type]}</p>
+          <h2 class="font-[var(--font-display)] text-2xl mb-2 group-hover:text-[var(--accent)] transition-colors">{c.data.title}</h2>
+          <p class="text-[var(--ink-soft)] text-sm">{c.data.pitch}</p>
+        </a>
+      ))}
+    </div>
+  </Container>
+</BaseLayout>
