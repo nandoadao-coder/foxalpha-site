@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+
+const lastUpdate = '28 de abril de 2026';
+---
+
+<BaseLayout
+  title="Política de Privacidade"
+  description="Como a FoxAlpha trata seus dados pessoais — em conformidade com a LGPD."
+>
+  <Container size="prose">
+    <article class="py-16 md:py-24">
+      <p class="text-sm text-[var(--ink-mute)] uppercase tracking-wide mb-4">Privacidade</p>
+      <h1 class="font-[var(--font-display)] text-4xl md:text-5xl mb-8">Política de Privacidade</h1>
+      <p class="text-[var(--ink-mute)] mb-12">Última atualização: {lastUpdate}</p>
+
+      <div class="prose prose-lg space-y-8">
+        <section>
+          <h2 class="font-[var(--font-display)] text-2xl mb-3">1. Dados que coletamos</h2>
+          <p class="text-[var(--ink-soft)]">
+            Quando você usa o agent de diagnóstico em <code>/diagnostico</code>, coletamos: nome, email, empresa, cargo, e o conteúdo da conversa que você teve com o agent. Esses dados são armazenados de forma segura no Cloudflare D1 (criptografado em repouso) e usados exclusivamente para que possamos retornar ao seu contato.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-[var(--font-display)] text-2xl mb-3">2. Cookies e analytics</h2>
+          <p class="text-[var(--ink-soft)]">
+            Não usamos cookies de tracking de terceiros. Para entender o tráfego do site, usamos Cloudflare Web Analytics, que não usa cookies e respeita Do Not Track.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-[var(--font-display)] text-2xl mb-3">3. Compartilhamento</h2>
+          <p class="text-[var(--ink-soft)]">
+            Não vendemos nem compartilhamos seus dados com terceiros para fins comerciais. As únicas exceções:
+          </p>
+          <ul class="text-[var(--ink-soft)]">
+            <li>Provedores de infraestrutura (Cloudflare, Groq) que processam dados em nosso nome, sob contratos de confidencialidade.</li>
+            <li>Solicitações legais válidas (ordem judicial).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-[var(--font-display)] text-2xl mb-3">4. Seus direitos (LGPD)</h2>
+          <p class="text-[var(--ink-soft)]">
+            Você tem direito a: acessar, corrigir, anonimizar, portar ou excluir seus dados a qualquer momento. Para exercer qualquer um desses direitos, escreva para <a href="mailto:privacidade@foxalpha.com.br" class="text-[var(--accent)] underline">privacidade@foxalpha.com.br</a>. Respondemos em até 15 dias.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-[var(--font-display)] text-2xl mb-3">5. Retenção</h2>
+          <p class="text-[var(--ink-soft)]">
+            Mantemos seus dados pelo tempo necessário para retorno comercial — tipicamente até 24 meses após o último contato. Após isso, os dados são anonimizados ou excluídos.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-[var(--font-display)] text-2xl mb-3">6. Contato do encarregado (DPO)</h2>
+          <p class="text-[var(--ink-soft)]">
+            Fernando Adão, fundador da FoxAlpha, atua como encarregado de dados. Contato: <a href="mailto:privacidade@foxalpha.com.br" class="text-[var(--accent)] underline">privacidade@foxalpha.com.br</a>.
+          </p>
+        </section>
+
+        <section class="border-t border-[var(--rule)] pt-8 mt-12">
+          <p class="text-sm text-[var(--ink-mute)]">
+            Esta política é um template padrão LGPD. A versão definitiva será revisada pelo nosso jurídico antes de o site sair da fase beta.
+          </p>
+        </section>
+      </div>
+    </article>
+  </Container>
+</BaseLayout>

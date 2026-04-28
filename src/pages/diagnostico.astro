@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import Link from '../components/ui/Link.astro';
+---
+
+<BaseLayout
+  title="Diagnóstico"
+  description="Em ~10 minutos, nosso agent identifica oportunidades reais de IA no seu negócio."
+>
+  <Container size="narrow">
+    <div class="py-16 md:py-24 text-center">
+      <p class="text-sm text-[var(--ink-mute)] uppercase tracking-wide mb-4">Diagnóstico</p>
+      <h1 class="font-[var(--font-display)] text-5xl md:text-6xl mb-8 leading-[1.05]">
+        Em ~10 minutos,<br />
+        <em class="italic font-light text-[var(--accent)]">um diagnóstico real.</em>
+      </h1>
+
+      <div class="bg-[var(--bg-elev)] border border-[var(--rule)] rounded-lg p-12 my-16">
+        <p class="text-lg text-[var(--ink-soft)] mb-2">O agent está sendo finalizado.</p>
+        <p class="text-[var(--ink-mute)] mb-8">Lançamento previsto para a próxima semana.</p>
+
+        <p class="text-sm text-[var(--ink-soft)] mb-6">Por enquanto, fale comigo direto:</p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+          <Button href="https://wa.me/55XXXXXXXXXXX" variant="primary" size="md">
+            WhatsApp →
+          </Button>
+          <Button href="mailto:fernando@foxalpha.com.br" variant="outline" size="md">
+            Email →
+          </Button>
+          <Button href="https://plan.numem.com.br/fernando/reuniao?user=fernando&duration=30" variant="outline" size="md">
+            Agendar 30min →
+          </Button>
+        </div>
+      </div>
+
+      <p class="text-sm text-[var(--ink-mute)]">
+        Acompanhe o desenvolvimento do agent em <Link href="https://github.com/nandoadao-coder/foxalpha-site" external>github.com/nandoadao-coder/foxalpha-site</Link>
+      </p>
+    </div>
+  </Container>
+</BaseLayout>

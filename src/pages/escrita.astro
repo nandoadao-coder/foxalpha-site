@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Link from '../components/ui/Link.astro';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const sorted = posts.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const formatDate = (d: Date) => d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+const readTime = (text: string) => Math.max(1, Math.round(text.split(/\s+/).length / 200));
+---
+
+<BaseLayout
+  title="Escrita"
+  description="Notas técnicas e operacionais sobre IA aplicada — escritas por quem está construindo."
+>
+  <Container size="narrow">
+    <div class="py-16 md:py-24">
+      <p class="text-sm text-[var(--ink-mute)] uppercase tracking-wide mb-4">Escrita</p>
+      <h1 class="font-[var(--font-display)] text-5xl md:text-6xl mb-8 leading-[1.05]">
+        Notas técnicas sobre IA aplicada.
+      </h1>
+      <p class="text-xl text-[var(--ink-soft)] max-w-2xl">
+        Escritas por quem está construindo. Sem listicles, sem fluff de SEO.
+      </p>
+    </div>
+
+    {sorted.length === 0 ? (
+      <div class="py-16 border-t border-[var(--rule)]">
+        <p class="text-[var(--ink-soft)] text-lg">
+          Em breve. Estou escrevendo o primeiro post sobre como construímos o agent que está rodando aqui no site.
+        </p>
+      </div>
+    ) : (
+      <ul class="space-y-12 pb-24">
+        {sorted.map(post => (
+          <li class="border-b border-[var(--rule)] pb-12 last:border-b-0">
+            <p class="text-sm text-[var(--ink-mute)] mb-3">
+              {formatDate(post.data.publishedAt)} · {readTime(post.body || '')} min
+            </p>
+            <h2 class="font-[var(--font-display)] text-3xl mb-3 leading-tight">
+              <a href={`/escrita/${post.data.slug}`} class="hover:text-[var(--accent)] transition-colors">
+                {post.data.title}
+              </a>
+            </h2>
+            <p class="text-[var(--ink-soft)] mb-4">{post.data.excerpt}</p>
+            <Link href={`/escrita/${post.data.slug}`}>Ler →</Link>
+          </li>
+        ))}
+      </ul>
+    )}
+  </Container>
+</BaseLayout>
