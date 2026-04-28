@@ -1,0 +1,56 @@
+---
+title: "NumemBot"
+slug: "numembot"
+client: "Numem"
+pitch: "Chatbot enterprise com RAG que respondeu 70% do atendimento da Numem em 90 dias."
+type: "saas"
+url: "https://chat2.numem.com.br"
+heroImage: "/cases/placeholder.svg"
+publishedAt: 2026-04-28
+featured: true
+stack:
+  - "Cloudflare Workers"
+  - "Cloudflare D1"
+  - "Vector store"
+  - "LLM (a confirmar)"
+  - "n8n"
+  - "React"
+  - "Tailwind CSS"
+metrics:
+  - label: "Tickets manuais reduzidos"
+    value: "70%"
+  - label: "Tempo médio de resposta"
+    value: "<2s"
+  - label: "Uptime no 1º semestre"
+    value: "99.4%"
+gallery: []
+---
+
+## Contexto
+
+A Numem opera com múltiplas linhas de produto (ERP, IA, Automação, Crédito) e um volume crescente de atendimento técnico. Antes do NumemBot, cada dúvida de cliente passava por equipe humana, gerando filas, retrabalho, e equipe sobrecarregada exatamente quando o produto crescia.
+
+O desafio era construir um chatbot que **realmente** resolvesse — não um FAQ disfarçado. Precisava entender contexto, consultar base de conhecimento atualizada, escalar para humano quando necessário, e funcionar em multi-tenant (cada empresa-cliente da Numem tem seu próprio bot).
+
+## Decisões técnicas
+
+**RAG sobre fine-tuning.** Optamos por busca semântica + recuperação de trechos relevantes em vez de treinar um modelo customizado. Razão: base de conhecimento muda toda semana; fine-tuning ficaria desatualizado e custaria caro re-treinar. RAG mantém o conteúdo da base como fonte de verdade.
+
+**Cloudflare em vez de AWS.** Latência baixa global (edge), custo previsível, integração nativa com Workers AI. Para volume da Numem, AWS seria 3-5× mais caro.
+
+**Slider anti-bot custom.** Em vez de reCAPTCHA (cookies do Google + impacto em UX), implementamos um slider de "deslize para verificar" — bloqueia bots de baixa qualidade sem fricção para humanos.
+
+**Multi-tenant no schema.** Cada empresa-cliente da Numem tem seu próprio espaço lógico (tenant_id em todas as queries), sua base de conhecimento, sua personalização visual, e seus dados isolados.
+
+## Resultado
+
+Em 90 dias após o launch:
+
+- 70% de redução em tickets manuais
+- Tempo médio de resposta abaixo de 2 segundos
+- 99,4% de uptime no primeiro semestre
+- Equipe humana reposicionada para casos complexos e onboarding
+
+## O que daria pra fazer melhor
+
+Subestimamos o tempo de curadoria da base de conhecimento. Construir o sistema foi a parte fácil; **manter o RAG bem-alimentado** virou trabalho contínuo, e isso deveria ter sido pensado como produto desde o dia 1. Hoje temos um pipeline para validação de qualidade de respostas que estaria mais maduro se tivéssemos começado mais cedo.
